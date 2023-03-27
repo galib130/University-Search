@@ -1,7 +1,19 @@
+
 import 'package:fetch_api/Services/remote_services.dart';
 import 'package:fetch_api/models/university.dart';
+import 'package:fetch_api/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
+
+enum FormValid{
+  search,
+  email,
+  password
+}
+enum Flag{
+  True,
+  False
+}
+
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
   
@@ -11,8 +23,17 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
+final TextEditingController _searchController= TextEditingController();
+final TextEditingController _emailController= TextEditingController();
+final TextEditingController _passwordController=TextEditingController();
+String placeholder="";
+Welcome? university;
+bool searchValid=false;
+bool emailValid=false;
+bool readyForSubmit=false;
+bool passwordValid=false;
+final _formKey=GlobalKey<FormState>();
 
-  final TextEditingController _searchController=TextEditingController();
   List<Welcome>?welcome;
   var isLoaded=false;
 @override
@@ -33,7 +54,37 @@ class _FormPageState extends State<FormPage> {
     }
 
   }
+  
+  changeBool(FormValid formValid,bool flag){
+      setState(() {
+      if(formValid==FormValid.search){
+        
+          searchValid=flag;
+        
+      }
+      else if(formValid==FormValid.email){
+       
+          emailValid=flag;
+     
+      }
+      else if(formValid==FormValid.password){
+    
+          passwordValid=flag;
+        
+      }
 
+    if(passwordValid==true&&emailValid==true&&searchValid==true){
+      readyForSubmit=true;
+    }
+    else{
+      readyForSubmit=false;
+    }
+     
+      });
+      
+  }
+ 
+  
   List<Welcome>getSearchData(String query){
       return welcome!.where((element) {
        final nameLower=element.name.toLowerCase();
@@ -42,42 +93,34 @@ class _FormPageState extends State<FormPage> {
       return nameLower.contains(queryLower);
       }).toList();
   }
+  submission(){
+    setState(() {
+      placeholder="never";
+      university=welcome!.firstWhere((element) {
+        final nameLower=element.name.toLowerCase();
+        final queryLower=_searchController.text.toLowerCase();
+        return nameLower.contains(queryLower);
+      }, orElse: (){
+          return  Welcome(webPages: ['not found'], domains: ["not found"], alphaTwoCode: "not found", country: "not found", name: "not found");        
+      });
+      print(placeholder);
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text("University Search"),
       ),
-      body: Visibility(
+      body:
+      Visibility(
         visible: isLoaded,
          replacement:  const CircularProgressIndicator(),
-        child: TypeAheadField<Welcome?>(
-          
-          textFieldConfiguration: TextFieldConfiguration(
-              controller:_searchController
-          ),
-          
-          noItemsFoundBuilder: (context) => Container(
-                height: 100,
-                child: const Center(
-                  child: Text(
-                    'No Users Found.',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                ),
-              ),
-          suggestionsCallback: getSearchData,
-          itemBuilder: (context,Welcome? suggestion){
-            final user =suggestion!;
-            return ListTile(title: Text(user.name),);
-          },
-          onSuggestionSelected: (Welcome? suggestion){
-            _searchController.text=suggestion!.name.toString();
-          },
-        ),
-
-
-      )
+       child:FormWidget(getSearchData: getSearchData, searchController: _searchController,
+       emailController: _emailController,passwordController: _passwordController,formKey: _formKey,
+        readyForSubmit:readyForSubmit,changeBool:changeBool,submission:submission,university:university))
       , 
     );
   }
