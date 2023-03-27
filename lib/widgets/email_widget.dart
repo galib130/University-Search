@@ -13,29 +13,32 @@ const EmailWidget ({super.key,required this.emailController,required this.change
 
   @override
   Widget build(BuildContext context) {
-    return  TextFormField(
-      controller: emailController,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration:  InputDecoration(
-        hintText: 'Email',
-        border: OutlineInputBorder(borderRadius:BorderRadius.circular(20) )
-      ),
-      keyboardType: TextInputType.emailAddress,
-      autofillHints: const [AutofillHints.email],
-      validator: (email){
-          if(!EmailValidator.validate(email!)){
+    return  Container(
+      padding: EdgeInsets.all(20),
+      child: TextFormField(
+        controller: emailController,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        decoration:  InputDecoration(
+          hintText: 'Email',
+          border: OutlineInputBorder(borderRadius:BorderRadius.circular(20) )
+        ),
+        keyboardType: TextInputType.emailAddress,
+        autofillHints: const [AutofillHints.email],
+        validator: (email){
+            if(!EmailValidator.validate(email!)){
+               WidgetsBinding.instance.addPostFrameCallback((_) {
+               changeBool(FormValid.email,false);
+       });
+                return "Enter a valid email";
+            }
+            else{
              WidgetsBinding.instance.addPostFrameCallback((_) {
-             changeBool(FormValid.email,false);
-     });
-              return "Enter a valid email";
-          }
-          else{
-           WidgetsBinding.instance.addPostFrameCallback((_) {
-             changeBool(FormValid.email,true);
-     });
-            return null;
-          }
-      },
+               changeBool(FormValid.email,true);
+       });
+              return null;
+            }
+        },
+      ),
     );
   }
 }

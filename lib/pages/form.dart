@@ -9,10 +9,7 @@ enum FormValid{
   email,
   password
 }
-enum Flag{
-  True,
-  False
-}
+
 
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
@@ -26,7 +23,7 @@ class _FormPageState extends State<FormPage> {
 final TextEditingController _searchController= TextEditingController();
 final TextEditingController _emailController= TextEditingController();
 final TextEditingController _passwordController=TextEditingController();
-String placeholder="";
+String username="";
 Welcome? university;
 bool searchValid=false;
 bool emailValid=false;
@@ -95,7 +92,7 @@ final _formKey=GlobalKey<FormState>();
   }
   submission(){
     setState(() {
-      placeholder="never";
+      username=_emailController.text;
       university=welcome!.firstWhere((element) {
         final nameLower=element.name.toLowerCase();
         final queryLower=_searchController.text.toLowerCase();
@@ -103,7 +100,7 @@ final _formKey=GlobalKey<FormState>();
       }, orElse: (){
           return  Welcome(webPages: ['not found'], domains: ["not found"], alphaTwoCode: "not found", country: "not found", name: "not found");        
       });
-      print(placeholder);
+      
     });
   }
   
@@ -111,16 +108,16 @@ final _formKey=GlobalKey<FormState>();
   Widget build(BuildContext context) {
     
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("University Search"),
-      ),
+     
       body:
-      Visibility(
-        visible: isLoaded,
-         replacement:  const CircularProgressIndicator(),
-       child:FormWidget(getSearchData: getSearchData, searchController: _searchController,
-       emailController: _emailController,passwordController: _passwordController,formKey: _formKey,
-        readyForSubmit:readyForSubmit,changeBool:changeBool,submission:submission,university:university))
+      SingleChildScrollView(
+        child: Visibility(
+          visible: isLoaded,
+           replacement:  const CircularProgressIndicator(),
+         child:FormWidget(getSearchData: getSearchData, searchController: _searchController,
+         emailController: _emailController,passwordController: _passwordController,formKey: _formKey,
+          readyForSubmit:readyForSubmit,changeBool:changeBool,submission:submission,university:university,username:username)),
+      )
       , 
     );
   }
