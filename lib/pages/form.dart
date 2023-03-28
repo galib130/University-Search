@@ -24,14 +24,14 @@ final TextEditingController _searchController= TextEditingController();
 final TextEditingController _emailController= TextEditingController();
 final TextEditingController _passwordController=TextEditingController();
 String username="";
-Welcome? university;
+University? university;
 bool searchValid=false;
 bool emailValid=false;
 bool readyForSubmit=false;
 bool passwordValid=false;
 final _formKey=GlobalKey<FormState>();
 
-  List<Welcome>?welcome;
+  List<University>?welcome;
   var isLoaded=false;
 @override
   void initState(){
@@ -82,7 +82,7 @@ final _formKey=GlobalKey<FormState>();
   }
  
   
-  List<Welcome>getSearchData(String query){
+  List<University>getSearchData(String query){
       return welcome!.where((element) {
        final nameLower=element.name.toLowerCase();
       final queryLower=query.toLowerCase();
@@ -98,7 +98,7 @@ final _formKey=GlobalKey<FormState>();
         final queryLower=_searchController.text.toLowerCase();
         return nameLower.contains(queryLower);
       }, orElse: (){
-          return  Welcome(webPages: ['not found'], domains: ["not found"], alphaTwoCode: "not found", country: "not found", name: "not found");        
+          return  University(webPages: ['not found'], domains: ["not found"], alphaTwoCode: "not found", country: "not found", name: "not found");        
       });
       
     });
@@ -113,7 +113,7 @@ final _formKey=GlobalKey<FormState>();
       SingleChildScrollView(
         child: Visibility(
           visible: isLoaded,
-           replacement:  const CircularProgressIndicator(),
+           replacement:  Center(child: const CircularProgressIndicator()),
          child:FormWidget(getSearchData: getSearchData, searchController: _searchController,
          emailController: _emailController,passwordController: _passwordController,formKey: _formKey,
           readyForSubmit:readyForSubmit,changeBool:changeBool,submission:submission,university:university,username:username)),

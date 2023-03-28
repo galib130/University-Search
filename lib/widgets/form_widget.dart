@@ -12,11 +12,11 @@ class FormWidget extends StatelessWidget{
   final TextEditingController searchController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final List<Welcome?>Function(String query) getSearchData;
+  final List<University?>Function(String query) getSearchData;
   final Function(FormValid,bool) changeBool;
   final bool readyForSubmit;
   final String username;
-  final Welcome? university;
+  final University? university;
   final Function submission;
    const FormWidget ({super.key, required this.getSearchData,required this.searchController,
    required this.emailController,required this.passwordController,required this.formKey,required this.readyForSubmit,required this.changeBool,
@@ -35,27 +35,27 @@ class FormWidget extends StatelessWidget{
            ,),
           Container(
              alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.all(20),
-            child: const Text("UniSearch",style: TextStyle(fontSize: 28),)),
+                      padding: const EdgeInsets.only(bottom: 30,left:15,top:15 ),
+            child: const Text("UniSearch",style: TextStyle(fontSize: 28,fontWeight: FontWeight.bold),)),
            Form(
                 key: formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child:Column(children: [
                     Container(
                        alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.only(left: 20),
-                      child: const Text("Enter a university name to get the details",style: TextStyle(fontSize: 18),)),
+                      padding: const EdgeInsets.only(left: 30,top: 10),
+                      child: const Text("Enter a university name to get the details",style: TextStyle(fontSize: 16),)),
                     SearchBarWidget(getSearchData: getSearchData, searchController: searchController,changeBool:changeBool),
                     Container(
                        alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.only(left: 20),
-                      child: const Text("Enter an Email",style: TextStyle(fontSize: 18),)),
+                      padding: const EdgeInsets.only(left: 30,top: 10),
+                      child: const Text("Enter an Email",style: TextStyle(fontSize: 16),)),
                     
                     EmailWidget(emailController: emailController,changeBool:changeBool),
                     Container(
                       alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.only(left: 20),
-                      child: const Text("Enter a password",style: TextStyle(fontSize: 18),)),
+                      padding: const EdgeInsets.only(left: 30,top: 10),
+                      child: const Text("Enter Password",style: TextStyle(fontSize: 16),)),
                     
                     PasswordWidget(passwordController: passwordController,changeBool:changeBool),
      
@@ -76,9 +76,10 @@ class FormWidget extends StatelessWidget{
                     )
                     
                 ],) ),
+                SizedBox(height: MediaQuery.of(context).size.height*0.03),
                 Container(
                   padding: const EdgeInsets.only(left: 20),
-                 alignment: Alignment.bottomLeft ,child: Text("Email:  $username",style:const TextStyle(fontSize: 20))),
+                 alignment: Alignment.bottomLeft ,child: Text("Email:  $username",style:const TextStyle(fontSize: 18))),
                 if(university!=null)
                 if(university!.name!="not found")
                 Container(
@@ -88,33 +89,37 @@ class FormWidget extends StatelessWidget{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
    
-                          Text("${university!.name.toString()}",style:TextStyle(fontSize: 28)),
-                          Text("Country: ${university!.country.toString()}",style: const TextStyle(fontSize:20,),),
+                          Container(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: Text("${university!.name.toString()}",style:const TextStyle(fontSize: 24,fontWeight: FontWeight.bold))),
+                          Text("Country: ${university!.country.toString()}",style: const TextStyle(fontSize:18,),),
                           if(university!.stateProvince.toString()!="null")
-                          Text("State Province: ${university!.stateProvince.toString()}",style: const TextStyle(fontSize:20,),)
+                          Text("State Province: ${university!.stateProvince.toString()}",style: const TextStyle(fontSize:18,),)
                           else
-                          const Text("State Province: Not found",style: const TextStyle(fontSize:20,),),
+                          const Text("State Province: Not found",style: const TextStyle(fontSize:18,),),
+                          Text("Alpha two code: ${university!.alphaTwoCode.toString()}",style: const TextStyle(fontSize:18,),),
                           ListView.builder(
                             shrinkWrap: true,
-                          
+                            
+                            padding: const EdgeInsets.only(top: 10),
                             itemCount: university!.domains.length,
                             itemBuilder:(context, index) {
                               if(index==0) {
-                                return Text("Domains: ${university!.domains[index].toString()}",style: const TextStyle(fontSize:20,));
+                                return Text("Domains: ${university!.domains[index].toString()}",style: const TextStyle(fontSize:18,));
                               } else {
-                                return Text(university!.domains[index].toString(),style: const TextStyle(fontSize:20,));
+                                return Text(university!.domains[index].toString(),style: const TextStyle(fontSize:18,));
                               }
                             },),
    
                         ListView.builder(
                             shrinkWrap: true,
-                          
+                          padding:const EdgeInsets.only(top: 10),
                             itemCount: university!.webPages.length,
                             itemBuilder:(context, index) {
                               if(index==0) {
-                                return Text("Web Pages: ${university!.webPages[index].toString()}",style: const TextStyle(fontSize:20,));
+                                return Text("Web Pages: ${university!.webPages[index].toString()}",style: const TextStyle(fontSize:18,));
                               } else {
-                                return Text(university!.webPages[index].toString(),style: const TextStyle(fontSize:20,));
+                                return Text(university!.webPages[index].toString(),style: const TextStyle(fontSize:18,));
                               }
                             },),
    

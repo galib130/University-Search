@@ -1,7 +1,7 @@
 import 'package:fetch_api/models/university.dart';
 import 'package:http/http.dart'as http;
 class RemoteService{
-  Future<List<Welcome>?>getWelcome()async
+  Future<List<University>?>getWelcome()async
   {
     var client =http.Client();
 
@@ -16,7 +16,7 @@ class RemoteService{
    
   }
 
-  static Future<List<Welcome>>getWelcomeAutocomplete(String query)async
+  static Future<List<University>>getWelcomeAutocomplete(String query)async
   {
     var client =http.Client();
 

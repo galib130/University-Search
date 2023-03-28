@@ -6,7 +6,7 @@ import '../models/university.dart';
 import '../pages/form.dart';
 class SearchBarWidget extends StatelessWidget{
 
-  final List<Welcome?>Function(String query) getSearchData;
+  final List<University?>Function(String query) getSearchData;
   final TextEditingController searchController;
   final Function(FormValid,bool) changeBool;
   const SearchBarWidget ({super.key, required this.getSearchData,required this.searchController,required this.changeBool});
@@ -14,8 +14,9 @@ class SearchBarWidget extends StatelessWidget{
   Widget build(BuildContext context) {
     
     return  Container(
-      padding: const EdgeInsets.all(15),
-      child: TypeAheadFormField<Welcome?>(
+      padding: const EdgeInsets.only(left:20,bottom: 20,right: 20),
+    
+      child: TypeAheadFormField<University?>(
             
             autovalidateMode: AutovalidateMode.onUserInteraction,
             textFieldConfiguration: TextFieldConfiguration(
@@ -32,11 +33,11 @@ class SearchBarWidget extends StatelessWidget{
                   ),
                 ),
             suggestionsCallback: getSearchData,
-            itemBuilder: (context,Welcome? suggestion){
+            itemBuilder: (context,University? suggestion){
               final user =suggestion!;
               return ListTile(title: Text(user.name),);
             },
-            onSuggestionSelected: (Welcome? suggestion){
+            onSuggestionSelected: (University? suggestion){
               searchController.text=suggestion!.name.toString();
             },
       

@@ -22,7 +22,7 @@ bool validatePassword(String pass){
   Widget build(BuildContext context) {
     
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.only(left:20,bottom: 20,right: 20),
       child: TextFormField(controller: passwordController,obscureText: true,enableSuggestions: false,autocorrect: false,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: const InputDecoration(hintText: 'Password'),

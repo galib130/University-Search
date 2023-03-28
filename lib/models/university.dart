@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-List<Welcome> welcomeFromJson(String str) => List<Welcome>.from(json.decode(str).map((x) => Welcome.fromJson(x)));
-List<Welcome> welcomeFromJsonName(String str,String query) => List<Welcome>.from(json.decode(str).map((x) => Welcome.fromJson(x)
+List<University> welcomeFromJson(String str) => List<University>.from(json.decode(str).map((x) => University.fromJson(x)));
+List<University> welcomeFromJsonName(String str,String query) => List<University>.from(json.decode(str).map((x) => University.fromJson(x)
 )).where((element) {
   final nameLower=element.name.toLowerCase();
   final queryLower=query.toLowerCase();
@@ -14,10 +14,10 @@ List<Welcome> welcomeFromJsonName(String str,String query) => List<Welcome>.from
 
 }).toList();
 
-String welcomeToJson(List<Welcome> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String welcomeToJson(List<University> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Welcome {
-    Welcome({
+class University {
+    University({
         required this.webPages,
         required this.domains,
         required this.alphaTwoCode,
@@ -33,7 +33,7 @@ class Welcome {
     String name;
     String? stateProvince;
 
-    factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+    factory University.fromJson(Map<String, dynamic> json) => University(
         webPages: List<String>.from(json["web_pages"].map((x) => x)),
         domains: List<String>.from(json["domains"].map((x) => x)),
         alphaTwoCode: json["alpha_two_code"],

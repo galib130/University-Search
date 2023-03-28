@@ -14,7 +14,8 @@ const EmailWidget ({super.key,required this.emailController,required this.change
   @override
   Widget build(BuildContext context) {
     return  Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.only(left:20,bottom: 20,right: 20),
+      
       
       child: TextFormField(
         
