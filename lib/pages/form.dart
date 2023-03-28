@@ -113,7 +113,7 @@ final _formKey=GlobalKey<FormState>();
       SingleChildScrollView(
         child: Visibility(
           visible: isLoaded,
-           replacement:  Center(child: const CircularProgressIndicator()),
+           replacement:   SizedBox(child: Center(child: const CircularProgressIndicator()),height: MediaQuery.of(context).size.height/1.3,),
          child:FormWidget(getSearchData: getSearchData, searchController: _searchController,
          emailController: _emailController,passwordController: _passwordController,formKey: _formKey,
           readyForSubmit:readyForSubmit,changeBool:changeBool,submission:submission,university:university,username:username)),
