@@ -22,10 +22,11 @@ bool validatePassword(String pass){
   Widget build(BuildContext context) {
     
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(15),
       child: TextFormField(controller: passwordController,obscureText: true,enableSuggestions: false,autocorrect: false,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: InputDecoration(hintText: 'Password',border: OutlineInputBorder(borderRadius:BorderRadius.circular(20))),
+      decoration: const InputDecoration(hintText: 'Password'),
+       
       validator: (value){
         
         if(value!.isEmpty){
@@ -47,7 +48,7 @@ bool validatePassword(String pass){
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                changeBool(FormValid.password,false);
        });
-            return "Needs to contain Capital letter,Small letter,Number and Special Character";
+            return "Needs to contain Capital letter,Small letter,Number\nand Special Character";
           }
           
         }

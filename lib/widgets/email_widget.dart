@@ -14,13 +14,16 @@ const EmailWidget ({super.key,required this.emailController,required this.change
   @override
   Widget build(BuildContext context) {
     return  Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(15),
+      
       child: TextFormField(
+        
         controller: emailController,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        decoration:  InputDecoration(
+        decoration:  const InputDecoration(
           hintText: 'Email',
-          border: OutlineInputBorder(borderRadius:BorderRadius.circular(20) )
+        
+          
         ),
         keyboardType: TextInputType.emailAddress,
         autofillHints: const [AutofillHints.email],

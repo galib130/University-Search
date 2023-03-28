@@ -14,22 +14,19 @@ class SearchBarWidget extends StatelessWidget{
   Widget build(BuildContext context) {
     
     return  Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(15),
       child: TypeAheadFormField<Welcome?>(
             
             autovalidateMode: AutovalidateMode.onUserInteraction,
             textFieldConfiguration: TextFieldConfiguration(
-                controller:searchController,
-                decoration: InputDecoration(contentPadding: EdgeInsets.all(20),
-                border: OutlineInputBorder(borderRadius:BorderRadius.circular(20)))
-                
+                controller:searchController, 
             ),
             
             noItemsFoundBuilder: (context) => Container(
                   height: 50,
                   child: const Center(
                     child: Text(
-                      'No Users Found.',
+                      'No Universities Found.',
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
