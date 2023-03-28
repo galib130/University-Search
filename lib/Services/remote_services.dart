@@ -16,21 +16,5 @@ class RemoteService{
    
   }
 
-  static Future<List<University>>getWelcomeAutocomplete(String query)async
-  {
-    var client =http.Client();
 
-    var uri =Uri.parse('http://universities.hipolabs.com/search');
-
-
-    var response =await client.get(uri);
-    if(response.statusCode==200){
-      var json=response.body;
-      return welcomeFromJsonName(json,query);
-    }
-    else{
-      throw Exception();
-    }
-   
-  }
 }

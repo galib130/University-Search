@@ -17,13 +17,15 @@ class SearchBarWidget extends StatelessWidget{
       padding: const EdgeInsets.only(left:20,bottom: 20,right: 20),
     
       child: TypeAheadFormField<University?>(
-            
+            hideOnLoading: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             textFieldConfiguration: TextFieldConfiguration(
                 controller:searchController, 
             ),
             
             noItemsFoundBuilder: (context) => Container(
+
+                color: Theme.of(context).primaryColor,
                   height: 50,
                   child: const Center(
                     child: Text(
@@ -35,7 +37,7 @@ class SearchBarWidget extends StatelessWidget{
             suggestionsCallback: getSearchData,
             itemBuilder: (context,University? suggestion){
               final user =suggestion!;
-              return ListTile(title: Text(user.name),);
+              return ListTile(title: Text(user.name),tileColor:Theme.of(context).primaryColor,);
             },
             onSuggestionSelected: (University? suggestion){
               searchController.text=suggestion!.name.toString();
